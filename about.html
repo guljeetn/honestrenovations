@@ -33,6 +33,11 @@
         <li><a href="about.html" class="active">About Us</a></li>
       </ul>
       <a href="index.html#contact" class="btn btn-gold nav-cta">Get a Free Quote</a>
+      <div class="lang-toggle">
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+        <span class="lang-sep">|</span>
+        <button class="lang-btn" data-lang="pa" onclick="setLang('pa')">ਪੰਜਾਬੀ</button>
+      </div>
       <button class="nav-hamburger" aria-label="Open menu" onclick="toggleNav()">
         <span></span><span></span><span></span>
       </button>
@@ -46,6 +51,11 @@
       <a href="gallery.html">Gallery</a>
       <a href="about.html">About Us</a>
       <a href="index.html#contact" class="btn btn-gold">Get a Free Quote</a>
+      <div style="display:flex;gap:.5rem;padding:.75rem 0 .25rem;border-top:1px solid rgba(255,255,255,.08);margin-top:.25rem;">
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+        <span class="lang-sep">|</span>
+        <button class="lang-btn" data-lang="pa" onclick="setLang('pa')">ਪੰਜਾਬੀ</button>
+      </div>
     </div>
   </nav>
 
@@ -210,6 +220,7 @@
     <i class="fab fa-whatsapp"></i>
   </a>
 
+  <div id="google_translate_element" style="display:none"></div>
   <script>
     function toggleNav() {
       document.getElementById('nav-mobile').classList.toggle('open');
@@ -219,6 +230,20 @@
         document.getElementById('nav-mobile').classList.remove('open');
       });
     });
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({ pageLanguage: 'en', includedLanguages: 'pa', autoDisplay: false }, 'google_translate_element');
+    }
+    function setLang(lang) {
+      document.cookie = 'googtrans=/en/' + lang + '; path=/';
+      document.cookie = 'googtrans=/en/' + lang + '; domain=.' + location.hostname + '; path=/';
+      location.reload();
+    }
+    (function() {
+      var m = document.cookie.match(/googtrans=\/en\/(\w+)/);
+      var cur = (m && m[1] !== 'en') ? m[1] : 'en';
+      document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.toggle('active', b.dataset.lang === cur); });
+    })();
   </script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
